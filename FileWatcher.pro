@@ -8,8 +8,10 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         consolelog.cpp \
+        filewatcher.cpp \
         ilog.cpp \
-        main.cpp
+        main.cpp \
+        trackedfile.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -18,4 +20,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     consolelog.h \
-    ilog.h
+    filewatcher.h \
+    ilog.h \
+    trackedfile.h
