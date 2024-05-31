@@ -17,6 +17,7 @@ public:
     bool RegisterFile(const QString& fileDir);
     void UpdateFileInfo();
     void InitialFileStatus() const;
+    int GetNumberOfMonitoredFiles() const;
 
 public slots:
     void AddToModifiedFiles(TrackedFile*);

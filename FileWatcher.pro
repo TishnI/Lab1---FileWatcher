@@ -11,7 +11,8 @@ SOURCES += \
         filewatcher.cpp \
         ilog.cpp \
         main.cpp \
-        trackedfile.cpp
+        trackedfile.cpp \
+        win.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -22,4 +23,5 @@ HEADERS += \
     consolelog.h \
     filewatcher.h \
     ilog.h \
-    trackedfile.h
+    trackedfile.h \
+    win.h

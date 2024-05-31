@@ -94,3 +94,8 @@ void FileWatcher::InitialFileStatus() const
     }
 }
 
+int FileWatcher::GetNumberOfMonitoredFiles() const
+{
+    return trackedFiles.length();
+}
+
