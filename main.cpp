@@ -8,7 +8,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    ConsoleLog* logger = new ConsoleLog();
+    ConsoleLog* logger = new(std::nothrow) ConsoleLog();
+    //ConsoleLog* logger = nullptr;
 
     QTextStream input(stdin);
     QTextStream out(stdout);

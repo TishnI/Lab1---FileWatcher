@@ -4,6 +4,11 @@
 FileWatcher::FileWatcher(ILog* log)
 {
     logger = log;
+
+    if(log == nullptr)
+    {
+        qWarning("FileWatcher(Ilog*): Logger not initialized");
+    }
 }
 
 FileWatcher::~FileWatcher()
@@ -33,9 +38,18 @@ bool FileWatcher::RegisterFile(const QString& fileDir)
             return false;
         }
     }
-    TrackedFile* fileInfo = new TrackedFile(fileDir);
-    trackedFiles.push_back(fileInfo);
-    connect(fileInfo, &TrackedFile::fileModified, this, &FileWatcher::AddToModifiedFiles);
+    TrackedFile* fileInfo = new(std::nothrow) TrackedFile(fileDir);
+    //TrackedFile* fileInfo = nullptr;
+    if(fileInfo)
+    {
+        trackedFiles.push_back(fileInfo);
+        connect(fileInfo, &TrackedFile::fileModified, this, &FileWatcher::AddToModifiedFiles);
+    }
+    else
+    {
+        qWarning("FileWatcher::RegisterFile(const QString&): File not initialized, not enough memory");
+    }
+
     return true;
 }
 
@@ -48,10 +62,18 @@ void FileWatcher::UpdateFileInfo()
 
     if(!modifiedFiles.empty())
     {
-        for(int i = 0; i < modifiedFiles.size(); i++)
+        if(logger)
         {
-            logger->Write(modifiedFiles.at(i)->GetFileInfo());
+            for(int i = 0; i < modifiedFiles.size(); i++)
+            {
+                logger->Write(modifiedFiles.at(i)->GetFileInfo());
+            }
         }
+        else
+        {
+            qWarning("FileWatcher::UpdateFileInfo(): Logger not initialized");
+        }
+
         modifiedFiles.clear();
     }
     return;
@@ -59,8 +81,16 @@ void FileWatcher::UpdateFileInfo()
 
 void FileWatcher::InitialFileStatus() const
 {
-    for(int i = 0; i < trackedFiles.size(); i++)
+    if(logger)
     {
-        logger->Write(trackedFiles.at(i)->GetFileInfo());
+        for(int i = 0; i < trackedFiles.size(); i++)
+        {
+            logger->Write(trackedFiles.at(i)->GetFileInfo());
+        }
+    }
+    else
+    {
+        qWarning("FileWatcher::initialFileStatus(): Logger not initialized");
     }
 }
+

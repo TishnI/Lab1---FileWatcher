@@ -55,4 +55,3 @@ QString TrackedFile::GetPath() const
 {
     return path;
 }
-
