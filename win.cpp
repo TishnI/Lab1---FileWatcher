@@ -17,13 +17,12 @@ void win::start()
         break;
     }
 
-    FileWatcher::Instance(logger).InitialFileStatus();
+    FileWatcher::Instance(logger).ShowFileStatus();
     while(true)
     {
         FileWatcher::Instance(logger).UpdateFileInfo();
         std::this_thread::sleep_for( std::chrono::milliseconds(100));
     }
-
     delete logger;
 }
 

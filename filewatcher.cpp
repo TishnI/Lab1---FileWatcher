@@ -74,24 +74,13 @@ void FileWatcher::UpdateFileInfo()
 
     if(!modifiedFiles.empty())
     {
-        if(logger)
-        {
-            for(int i = 0; i < modifiedFiles.size(); i++)
-            {
-                logger->Write(modifiedFiles.at(i)->GetFileInfo());
-            }
-        }
-        else
-        {
-            qWarning("FileWatcher::UpdateFileInfo(): Logger not initialized");
-        }
-
+        ShowFileStatus();
         modifiedFiles.clear();
     }
     return;
 }
 
-void FileWatcher::InitialFileStatus() const
+void FileWatcher::ShowFileStatus() const
 {
     if(logger)
     {
