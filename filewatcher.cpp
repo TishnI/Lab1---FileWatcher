@@ -53,6 +53,18 @@ bool FileWatcher::RegisterFile(const QString& fileDir)
     return true;
 }
 
+void FileWatcher::RemoveFile(const QString &fileDir)
+{
+    for(int i = 0; i < trackedFiles.size(); i++)
+    {
+        if(trackedFiles[i]->GetPath() == fileDir)
+        {
+            trackedFiles.remove(i);
+            break;
+        }
+    }
+}
+
 void FileWatcher::UpdateFileInfo()
 {
     for(int i = 0; i < trackedFiles.size(); i++)

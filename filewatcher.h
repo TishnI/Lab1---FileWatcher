@@ -15,6 +15,7 @@ public:
     static FileWatcher& Instance(ILog*);
 
     bool RegisterFile(const QString& fileDir);
+    void RemoveFile(const QString& fileDir);
     void UpdateFileInfo();
     void InitialFileStatus() const;
     int GetNumberOfMonitoredFiles() const;
